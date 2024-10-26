@@ -1,0 +1,27 @@
+Let's solve the equation, "three x plus four equals seven."
+
+Our first goal is to isolate the term with the variable x, which means getting x by itself on one side of the equation.~
+
+To do this, we need to eliminate the number added to x, which in our case is four. We'll do this by subtracting four from both sides of the equation.~
+
+Subtracting four from the left side leaves us with "three x," and subtracting four from the right side gives us three.~
+
+Now, our equation is simplified to "three x equals three."~
+
+The next step is to solve for x by eliminating the coefficient, which is the number in front of x. In this case, it's three.~
+
+We eliminate this by dividing both sides of our equation by three.~
+
+When we divide three x by three, we're left with just "x."~
+
+On the right side of the equation, dividing three by three gives us one.~
+
+So the solution to the equation is "x equals one."~
+
+Finally, let's double-check our solution by plugging x equals one back into the original equation to ensure it balances.~
+
+If we replace x with one, we get "three times one plus four."~
+
+Three times one equals three, and adding four gives us seven, which matches the original equation perfectly, confirming our solution.~
+
+Therefore, x equals one is indeed the correct solution to the equation.

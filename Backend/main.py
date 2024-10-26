@@ -1,0 +1,41 @@
+import json
+import os
+import openai
+
+from Backend.Api.export_file import aws_uploader
+from Backend.Movie_Assembler.create_movie import create_movie
+from Backend.Movie_Assembler.upload_video import YouTubeUploader, main
+from Backend.Movie_Creator.core import core
+
+problem = '3x + 4 = 7'
+solution = 'x = 1'
+
+
+class solver:
+    def __init__(self, problem, solution):
+        self.problem = problem
+        self.solution = solution
+        self.link = ''
+        os.environ["GCP_API_KEY"] = 'AIzaSyBMc19g-80j9BmdlDLZLfR7D7ZBZiBWaAc'
+        os.environ[
+            "OPENAI_API_KEY"] = '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'
+        openai.api_key = os.environ["OPENAI_API_KEY"]
+
+        # yt = YouTubeUploader('/HelloWorld/Secrets/client_secrets.json')
+
+    def upload(self, upload):
+        core_instance = core(problem, solution, openai.api_key)
+        video_inputs = core_instance.start()
+        mov = create_movie(openai.api_key)
+        movie_name = mov.create_video_from_inputs(video_inputs)
+        # if upload:
+        mov.create_video_from_inputs(video_inputs, movie_name)
+        #     self.link = main(movie_name, problem)
+        #     return self.link
+        self.link = aws_uploader().upload(file_path=movie_name)
+        return self.to_json()
+
+    def to_json(self):
+        return json.dumps({'link': self.link})
+
+# solver(problem, solution).upload(False)
