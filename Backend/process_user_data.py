@@ -28,4 +28,3 @@ class process_data:
             return ai_response
         else:
             return "Error"
-
