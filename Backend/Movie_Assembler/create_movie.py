@@ -1,4 +1,5 @@
 import time
+from typing import re
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -16,10 +17,14 @@ class create_movie:
         self.api_key = api_key
 
     def escape_latex(self, text):
-        special_chars = ['#', '$', '%', '&', '~', '_', '^', '{', '}']  # Exclude backslash
-        for char in special_chars:
-            text = text.replace(char, '\\' + char)
-        return text
+        # Use regex to detect LaTeX commands and avoid escaping them
+        if re.match(r'^\\', text):
+            return text  # Assume it's a LaTeX command, do not escape
+        else:
+            special_chars = ['#', '$', '%', '&', '~', '_', '^']
+            for char in special_chars:
+                text = text.replace(char, '\\' + char)
+            return text
 
     def render_latex_to_image(self, latex_str, output_image='latex_image.png'):
         plt.rcParams.update({
@@ -91,38 +96,74 @@ class create_movie:
         # Load and resize background image
         bg_clip = ImageClip('background.jpeg').set_duration(final_audio.duration).resize((video_width, video_height))
 
-        # List to hold all the line clips
-        line_clips = []
+        # Dictionary to hold line clips with their corresponding lines as keys
+        line_clips_dict = {}
 
-        cumulative_lines = []
+        # Keep track of lines currently visible
+        visible_lines = []
 
         for i, video_input in enumerate(video_inputs):
             line_id = f"{i:03}"
-            image_file = f"latex_image_{line_id}.png"
+            current_line = self.escape_latex(video_input.on_screen)
 
-            # Build cumulative lines
-            cumulative_lines.append(self.escape_latex(video_input.on_screen))
-            cumulative_text = r' \\ '.join(cumulative_lines)  # Use raw string for LaTeX line breaks
+            # Check if the line is already visible
+            if current_line in visible_lines:
+                print(f"Line already visible, skipping duplicate: {current_line}")
+                continue  # Skip adding duplicate lines
 
-            # Wrap cumulative_text in align* environment
+            # Add the line to visible lines
+            visible_lines.append(current_line)
+
+            # If more than 3 lines are visible, remove the oldest one
+            if len(visible_lines) > 3:
+                removed_line = visible_lines.pop(0)
+                # Update the end time of the removed line's clip
+                if removed_line in line_clips_dict:
+                    end_time_line = start_times[i]  # Current time
+                    line_clips_dict[removed_line] = line_clips_dict[removed_line].set_end(end_time_line)
+                    print(f"Line removed: {removed_line}")
+
+            # Build cumulative text from visible lines
+            cumulative_text = r' \\ '.join(visible_lines)
             cumulative_text = r'\begin{align*}' + cumulative_text + r'\end{align*}'
 
-            # Print the cumulative_text for debugging
-            print(f"Cumulative LaTeX text: {cumulative_text}")
-
-            # Render LaTeX image for the cumulative lines
+            # Render LaTeX image for the current set of visible lines
+            image_file = f"latex_image_{line_id}.png"
             self.render_latex_to_image(cumulative_text, image_file)
 
             # Create ImageClip for the cumulative image
-            line_clip = ImageClip(image_file).set_duration(final_audio.duration - start_times[i])
+            line_clip = ImageClip(image_file)
             line_clip = line_clip.set_position('center')
-            line_clip = line_clip.set_start(start_times[i])
 
-            # Add fade-in effect at the start
-            fade_duration = 0.5  # Duration of fade-in
-            line_clip = line_clip.fadein(fade_duration)
+            # Set the timing for the line to appear and disappear
+            start_time_line = start_times[i]
+            # The line remains visible until it is removed from visible_lines
+            if len(visible_lines) == 3:
+                # The line will be visible for the duration of the next 3 audio clips
+                if i + 3 < len(start_times):
+                    end_time_line = start_times[i + 3]
+                else:
+                    end_time_line = final_audio.duration
+            else:
+                # The line remains until the next line is added and causes it to be removed
+                if i + 1 < len(start_times):
+                    end_time_line = start_times[i + 1]
+                else:
+                    end_time_line = final_audio.duration
 
-            line_clips.append(line_clip)
+            # Set the start and end times
+            line_clip = line_clip.set_start(start_time_line).set_end(end_time_line)
+
+            # Add fade-in and fade-out effects
+            if i == 1 or i == len(video_inputs):
+                fade_duration = 0.5  # Duration of fade-in and fade-out
+                line_clip = line_clip.fadein(fade_duration).fadeout(fade_duration)
+
+            # Store the clip in the dictionary
+            line_clips_dict[current_line] = line_clip
+
+        # Get all line clips from the dictionary
+        line_clips = list(line_clips_dict.values())
 
         # Composite all clips together
         video_clip = CompositeVideoClip([bg_clip] + line_clips, size=(video_width, video_height))
