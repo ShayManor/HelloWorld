@@ -1,11 +1,13 @@
 from openai import OpenAI
+from typing import Optional
 
-class process_data:
-    def __init__(self, problem, solution):
-        OpenAI.api_key = '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'
-        self.assistant_id = "asst_VRHhu2ImFPxGBi05iz2AnjOc"
+
+class script_generator:
+    def __init__(self, pre_block: Optional[str], block: str, post_block: Optional[str]):
         self.client = OpenAI()
-        self.prompt = "Problem: " + problem + "\n Solution: " + solution
+        self.client.api_key = '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'
+        self.assistant_id = 'asst_CoRUsRi8KqrdnZIP4UyCi2WY'
+        self.prompt = "Script before block: " + pre_block + "\nBlock script: " + block + "\nScript after block: " + post_block
 
     def start_process(self):
         assistant = self.client.beta.assistants.retrieve(
@@ -23,9 +25,6 @@ class process_data:
         if run.status == 'completed':
             messages = self.client.beta.threads.messages.list(thread_id=run.thread_id)
             ai_response = messages.data[0].content[0].text.value
-            if ai_response == "false":
-                return "Error"
             return ai_response
         else:
             return "Error"
-
