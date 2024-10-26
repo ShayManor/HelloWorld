@@ -13,6 +13,7 @@ class on_screen_generator:
         assistant = self.client.beta.assistants.retrieve(
             assistant_id=self.assistant_id
         )
+        # print("In start process")
         thread = self.client.beta.threads.create(
             messages=[{"role": "user", "content": prompt}]
         )
@@ -25,6 +26,9 @@ class on_screen_generator:
         if run.status == 'completed':
             messages = self.client.beta.threads.messages.list(thread_id=run.thread_id)
             ai_response = messages.data[0].content[0].text.value
+            ai_response.replace("\\\\", "\\")
+            ai_response.replace("\\\\", "\\")
+            print(ai_response)
             return ai_response
         else:
             return "Error"

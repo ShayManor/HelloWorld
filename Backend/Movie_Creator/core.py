@@ -11,33 +11,47 @@ class core:
         self.apiKey = api_key
 
     def start(self):
-        process = process_data(self.problem, self.solution, api_key=self.apiKey)
-        print(self.apiKey)
-        post_processed_data = process.start_processing()
+        # process = process_data(self.problem, self.solution, api_key=self.apiKey)
+        # post_processed_data = process.start_processing()
+        post_processed_data = "To solve the equation \(3x + 4 = 7\), start by isolating the term with the variable \(x\). You can do this by subtracting 4 from both sides of the equation, resulting in \(3x = 3\). Next, solve for \(x\) by dividing both sides of the equation by 3, which gives \(x = 1\). Double-check the solution by plugging \(x = 1\) back into the original equation to ensure both sides equal 7."
+        # print("Post Processing Finished")
+        # print(post_processed_data)
         if post_processed_data == "Error":
             return False
 
-        script = script_generator(apiKey=self.apiKey, prompt=post_processed_data)
-        script = script.start_process()
+        # script = script_generator(apiKey=self.apiKey, prompt=post_processed_data)
+        # script = script.start_process()
+        with open('Movie_Creator/script.txt') as f:
+            script = f.read()
+        print("Script finished")
+        # print(script)
 
         sliced_script = script.split('~')
+        print('Length is ' + str(len(sliced_script)))
         screen_text_obj = on_screen_generator(apiKey=self.apiKey)
         num_steps = len(sliced_script)
 
         show_on_screen = []
 
         if num_steps == 1:
-            input = video_input()
-            input.set_script(sliced_script[0])
-            input.set_on_screen(screen_text_obj.start_process(block=sliced_script[0], pre_block=None, post_block=None))
+            v_input = video_input()
+            v_input.script = sliced_script[0]
+            v_input.on_screen = screen_text_obj.start_process(block=sliced_script[0], pre_block=None, post_block=None)
+            show_on_screen.append(v_input)
         else:
             for i in range(num_steps):
-                input = video_input()
-                input.set_script(sliced_script[i])
+                v_input = video_input()
+                v_input.set_script(sliced_script[i])
                 if i == 0:
-                    input.set_on_screen(screen_text_obj.start_process(block=sliced_script[i], pre_block=None, post_block=sliced_script[i + 1]))
+                    v_input.on_screen = screen_text_obj.start_process(block=sliced_script[i], pre_block=None,
+                                                                      post_block=sliced_script[i + 1])
                 elif i == num_steps - 1 and i > 0:
-                    input.set_on_screen(screen_text_obj.start_process(block=sliced_script[i], pre_block=sliced_script[i - 1], post_block=None))
+                    v_input.on_screen = screen_text_obj.start_process(block=sliced_script[i],
+                                                                      pre_block=sliced_script[i - 1],
+                                                                      post_block=None)
                 else:
-                    input.set_on_screen(screen_text_obj.start_process(block=sliced_script[i], pre_block=sliced_script[i - 1], post_block=sliced_script[i + 1]))
-                show_on_screen.append(input)
+                    v_input.on_screen = screen_text_obj.start_process(block=sliced_script[i],
+                                                                      pre_block=sliced_script[i - 1],
+                                                                      post_block=sliced_script[i + 1])
+                show_on_screen.append(v_input)
+        return show_on_screen
