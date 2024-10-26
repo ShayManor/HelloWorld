@@ -1,5 +1,5 @@
 from openai import OpenAI
-from typing import Optional
+from typing import *
 
 
 class on_screen_generator:
@@ -9,7 +9,7 @@ class on_screen_generator:
         self.assistant_id = 'asst_CoRUsRi8KqrdnZIP4UyCi2WY'
 
     def start_process(self, pre_block: Optional[str], block: str, post_block: Optional[str]):
-        prompt = "Script before block: " + pre_block + "\nBlock script: " + block + "\nScript after block: " + post_block
+        prompt = "Script before block: " + (pre_block or "") + "\nBlock script: " + block + "\nScript after block: " + (post_block or "")
         assistant = self.client.beta.assistants.retrieve(
             assistant_id=self.assistant_id
         )

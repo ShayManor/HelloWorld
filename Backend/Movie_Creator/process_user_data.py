@@ -1,8 +1,8 @@
 from openai import OpenAI
 
 class process_data:
-    def __init__(self, problem, solution, apiKey):
-        OpenAI.api_key = apiKey
+    def __init__(self, problem, solution, api_key):
+        OpenAI.api_key = api_key
         self.assistant_id = "asst_VRHhu2ImFPxGBi05iz2AnjOc"
         self.client = OpenAI()
         self.prompt = "Problem: " + problem + "\n Solution: " + solution

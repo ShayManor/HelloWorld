@@ -5,13 +5,14 @@ from Backend.Movie_Creator.video_input import video_input
 
 
 class core:
-    def __init__(self, problem, solution):
+    def __init__(self, problem, solution, api_key):
         self.problem = problem
         self.solution = solution
-        self.apiKey = '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'
+        self.apiKey = api_key
 
     def start(self):
-        process = process_data(self.problem, self.solution, apiKey=self.apiKey)
+        process = process_data(self.problem, self.solution, api_key=self.apiKey)
+        print(self.apiKey)
         post_processed_data = process.start_processing()
         if post_processed_data == "Error":
             return False
