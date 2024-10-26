@@ -2,19 +2,19 @@ from openai import OpenAI
 from typing import Optional
 
 
-class script_generator:
-    def __init__(self, pre_block: Optional[str], block: str, post_block: Optional[str]):
+class on_screen_generator:
+    def __init__(self, apiKey):
         self.client = OpenAI()
-        self.client.api_key = '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'
+        self.client.api_key = apiKey
         self.assistant_id = 'asst_CoRUsRi8KqrdnZIP4UyCi2WY'
-        self.prompt = "Script before block: " + pre_block + "\nBlock script: " + block + "\nScript after block: " + post_block
 
-    def start_process(self):
+    def start_process(self, pre_block: Optional[str], block: str, post_block: Optional[str]):
+        prompt = "Script before block: " + pre_block + "\nBlock script: " + block + "\nScript after block: " + post_block
         assistant = self.client.beta.assistants.retrieve(
             assistant_id=self.assistant_id
         )
         thread = self.client.beta.threads.create(
-            messages=[{"role": "user", "content": self.prompt}]
+            messages=[{"role": "user", "content": prompt}]
         )
 
         run = self.client.beta.threads.runs.create_and_poll(
