@@ -10,12 +10,9 @@ def solve():
     data = request.get_json()
     problem = data.get('problem')
     solution = data.get('solution')
-    upload = True
-    # if upload:
+    upload = False
     result = solver(problem, solution).upload(upload).to_json()
-    # else:
-    #     result = solver(problem, solution).upload(upload)
-    return result
+    # return result
 
 # @app.route('/ping', methods=['GET'])
 # def ping():

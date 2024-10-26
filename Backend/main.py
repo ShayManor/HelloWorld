@@ -1,3 +1,4 @@
+import json
 import os
 import openai
 
@@ -26,12 +27,12 @@ class solver:
         video_inputs = core_instance.start()
         mov = create_movie(openai.api_key)
         movie_name = mov.create_video_from_inputs(video_inputs)
-        if upload:
-            mov.create_video_from_inputs(video_inputs, movie_name)
-            self.link = main(movie_name, problem)
-            return self.link
+        # if upload:
+        #     mov.create_video_from_inputs(video_inputs, movie_name)
+        #     self.link = main(movie_name, problem)
+        #     return self.link
 
     def to_json(self):
-        return {'link': self.link}
+        return json.dumps({'link': self.link})
 
 # solver(problem, solution).upload(False)
