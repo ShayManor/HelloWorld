@@ -21,7 +21,8 @@ class core:
 
         # script = script_generator(apiKey=self.apiKey, prompt=post_processed_data)
         # script = script.start_process()
-        with open('Movie_Creator/script.txt') as f:
+        # with open('Movie_Creator/script.txt') as f:
+        with open('/Users/shay/PycharmProjects/HelloWorld/Backend/Movie_Creator/script.txt') as f:
             script = f.read()
         print("Script finished")
         # print(script)

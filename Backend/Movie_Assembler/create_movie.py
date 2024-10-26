@@ -1,5 +1,5 @@
+import re
 import time
-from typing import re
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -29,13 +29,15 @@ class create_movie:
     def render_latex_to_image(self, latex_str, output_image='latex_image.png'):
         plt.rcParams.update({
             "text.usetex": True,
-            "font.size": 24,  # Adjust as needed
-            "text.latex.preamble": r"\usepackage{amsmath}"
+            "font.size": 24,
+            "text.latex.preamble": r"\usepackage{amsmath}\usepackage{amssymb}\usepackage{amsfonts}"
         })
         fig, ax = plt.subplots(figsize=(12, 6))
         ax.axis('off')
 
-        # Do not replace backslashes or wrap the string in $...$
+        # Do not wrap the LaTeX string in $$...$$ if it contains a display math environment
+        if not latex_str.strip().startswith(r'\begin'):
+            latex_str = f"$$ {latex_str} $$"  # Wrap in $$...$$ only if not already in a math environment
 
         print(f"Final LaTeX string to render: {latex_str}")
 
@@ -94,7 +96,7 @@ class create_movie:
         video_width, video_height = 1280, 720  # HD resolution
 
         # Load and resize background image
-        bg_clip = ImageClip('background.jpeg').set_duration(final_audio.duration).resize((video_width, video_height))
+        bg_clip = ImageClip('/Users/shay/PycharmProjects/HelloWorld/Backend/background.jpeg').set_duration(final_audio.duration).resize((video_width, video_height))
 
         # Dictionary to hold line clips with their corresponding lines as keys
         line_clips_dict = {}
@@ -155,8 +157,8 @@ class create_movie:
             line_clip = line_clip.set_start(start_time_line).set_end(end_time_line)
 
             # Add fade-in and fade-out effects
-            if i == 1 or i == len(video_inputs):
-                fade_duration = 0.5  # Duration of fade-in and fade-out
+            if i == 0 or i == len(video_inputs) - 1:
+                fade_duration = 0.75  # Duration of fade-in and fade-out
                 line_clip = line_clip.fadein(fade_duration).fadeout(fade_duration)
 
             # Store the clip in the dictionary
@@ -191,6 +193,7 @@ class create_movie:
                 os.remove(audio_file)
 
         print(f"Total time taken: {time.time() - start_time} seconds.")
+        return output_video
 
     def make_silence(self, duration, fps=44100, n_channels=2):
         total_samples = int(duration * fps)

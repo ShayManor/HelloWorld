@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 
 from Backend.main import solver
 
@@ -6,19 +6,22 @@ app = Flask(__name__)
 
 
 @app.route('/solve', methods=['PUT'])
-def solve(problem, solution):
-    return solver(problem, solution)
+def solve():
+    data = request.get_json()
+    problem = data.get('problem')
+    solution = data.get('solution')
+    upload = True
+    # if upload:
+    result = solver(problem, solution).upload(upload).to_json()
+    # else:
+    #     result = solver(problem, solution).upload(upload)
+    return result
 
-
-@app.route('/ping', methods=['GET'])
-def ping():
-    state = 1
-    return state
-
-
-@app.route('/answer', methods=['GET'])
-def answer():
-    return 'youtube.com'
+# @app.route('/ping', methods=['GET'])
+# def ping():
+#     if s == None:
+#         return "Error: solve has not been started"
+#     return s.state
 
 
 if __name__ == '__main__':
