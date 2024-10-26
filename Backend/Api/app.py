@@ -11,15 +11,10 @@ def solve():
     problem = data.get('problem')
     solution = data.get('solution')
     upload = False
-    result = solver(problem, solution).upload(upload).to_json()
-    # return result
-
-# @app.route('/ping', methods=['GET'])
-# def ping():
-#     if s == None:
-#         return "Error: solve has not been started"
-#     return s.state
+    return solver(problem, solution).upload(upload).to_json()
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+#     AWS access portal URL: https://d-9067d96b68.awsapps.com/start, Username: shay, One-time password: b/m-yG7ne&M@sz

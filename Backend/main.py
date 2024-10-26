@@ -2,6 +2,7 @@ import json
 import os
 import openai
 
+from Backend.Api.export_file import aws_uploader
 from Backend.Movie_Assembler.create_movie import create_movie
 from Backend.Movie_Assembler.upload_video import YouTubeUploader, main
 from Backend.Movie_Creator.core import core
@@ -28,9 +29,11 @@ class solver:
         mov = create_movie(openai.api_key)
         movie_name = mov.create_video_from_inputs(video_inputs)
         # if upload:
-        #     mov.create_video_from_inputs(video_inputs, movie_name)
+        mov.create_video_from_inputs(video_inputs, movie_name)
         #     self.link = main(movie_name, problem)
         #     return self.link
+        self.link = aws_uploader().upload(file_path=movie_name)
+        return self.to_json()
 
     def to_json(self):
         return json.dumps({'link': self.link})
