@@ -1,10 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from Movie_Creator.main import solver  # Adjust the import as per your project structure
+from Movie_Creator.solver import solver  # Adjust the import as per your project structure
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
+
+@app.route('/')
+def index():
+    return "HelloWorld2!"
 
 
 @app.route('/solve', methods=['POST'])
