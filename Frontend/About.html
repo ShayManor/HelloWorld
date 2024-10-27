@@ -8,19 +8,46 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
+        .navbar-brand {
+            background: linear-gradient(to left, #95d1cf, rgb(84, 84, 137)); /* Adjust colors as needed */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Make text color transparent */
+            font-size: 3vw; /* Adjust the size as needed */
+            font-weight: bold; /* Optional: make it bold */
+            margin-right: 5px;
+            height: 5vw;
+        }
+
+        .navbar {
+            font-size: 1.5vw; /* Adjust the size as needed */
+            font-weight: bold; /* Optional: make it bold */
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
+            font-weight: 625; /* Semi-bold text */
+            font-family: 'Nunito', sans-serif;
             background: linear-gradient(to right, #95d1cf, rgb(84, 84, 137));
             color: #000000;
+            font-size: 1.25vw;
+        }
+        h3 {
+            font-family: 'Roboto', sans-serif;
+            color: rgb(0, 0, 0);
+            font-size: 2.5vw;
         }
         .container {
-            max-width: 800px;
+            max-width: 55vw;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 30px;
+            border-radius: 1.15vw;
+            padding: 1.35vw;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            margin-bottom: 1.35vw;
         }
+
     </style>
 </head>
 
@@ -66,15 +93,21 @@
 
     <p>Feel free to explore the functionalities we offer and reach out to us for any inquiries!</p>
 
-    <div class="row mt-3">
-        <div class="col-md-6">
-            <img src="../images/HS.jpg" alt="Elan" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;">
+    <p>
+        <span style="margin-right: 16.1vw;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elansmyla@gmail.com</span>
+        <span>shay.manor@gmail.com</span>
+    </p>
+
+    <div class="row justify-content-center align-items-center mt-3 images-row">
+        <div class="col-sm-6 col-md-5">
+            <img src="images/HS.jpg" alt="Elan" class="img-fluid side-by-side-img">
         </div>
-        <div class="col-md-6">
-            <img src="../images/IMG_2900.jpg" alt="Math Images" class="img-fluid rounded shadow-sm" style="max-width: 98.5%; height: auto;">
+        <div class="col-sm-6 col-md-5">
+            <img src="images/IMG_2900.jpg" alt="Shay" class="img-fluid side-by-side-img">
         </div>
     </div>
 </div>
+
 
 
 <!-- Bootstrap JS and dependencies -->
