@@ -48,7 +48,7 @@ class create_movie:
             transform=ax.transAxes
         )
         try:
-            plt.savefig(output_image, bbox_inches='tight', pad_inches=0.1, dpi=300)
+            plt.savefig(output_image, bbox_inches='tight', pad_inches=1, dpi=200)
             print(f"Image saved as {output_image}")
         except Exception as e:
             print(f'Error with LaTeX shown on screen: {e}')
@@ -157,9 +157,9 @@ class create_movie:
             line_clip = line_clip.set_start(start_time_line).set_end(end_time_line)
 
             # Add fade-in and fade-out effects
-            if i == 0 or i == len(video_inputs) - 1:
-                fade_duration = 0.75  # Duration of fade-in and fade-out
-                line_clip = line_clip.fadein(fade_duration).fadeout(fade_duration)
+            # if i == 0 or i == len(video_inputs) - 1:
+            #     fade_duration = 0.75  # Duration of fade-in and fade-out
+            #     line_clip = line_clip.fadein(fade_duration).fadeout(fade_duration)
 
             # Store the clip in the dictionary
             line_clips_dict[current_line] = line_clip
@@ -174,12 +174,12 @@ class create_movie:
         # Write the video file
         video_clip.write_videofile(
             output_video,
-            fps=24,
+            fps=18,
             codec='libx264',
             preset='medium',
-            bitrate="5000k",
+            bitrate="1000k",
             audio_codec='aac',
-            threads=4
+            threads=8
         )
 
         # Clean up image and audio files
