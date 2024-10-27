@@ -5,324 +5,342 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Please enter your equation:</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Link to Bootstrap CSS for responsive styling -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-    <!-- MathQuill CSS from CDN -->
+    <!-- Link to MathQuill CSS for rendering mathematical expressions -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css">
 
-    <!-- Google Fonts -->
+    <!-- Link to Google Fonts for custom font styling -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
+        /* Styling for the body, including a gradient background and centering content */
         body {
             background: linear-gradient(to right, #f86c7a, #7cdbfa);
-            min-height: 120vh;
+            min-height: 120vh; /* Ensures body height is sufficient for content */
             display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Roboto', sans-serif;
-            color: #e0e0e0;
+            justify-content: center; /* Centers content horizontally */
+            align-items: center; /* Centers content vertically */
+            font-family: 'Roboto', sans-serif; /* Sets the font for the entire page */
+            color: #e0e0e0; /* Text color */
             margin: 0; /* Remove default margin */
             height: 100vh; /* Full viewport height */
-            overflow-y: auto; /* Enable vertical scrolling */
+            overflow-y: auto; /* Enables vertical scrolling if necessary */
         }
 
+        /* Container for the main content with background, padding, and shadow */
         .container {
-            max-width: 700px;
-            background: rgba(25, 25, 25, 0.9);
-            border-radius: 15px;
-            padding: 30px; /* Keep the original padding */
-            min-height: 400px; /* Set a minimum height to make it taller */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            text-align: center;
+            max-width: 933px; /* Maximum width for the container */
+            background: rgba(25, 25, 25, 0.9); /* Semi-transparent background */
+            border-radius: 15px; /* Rounded corners */
+            padding: 30px; /* Padding around content */
+            min-height: 611px; /* Minimum height for the container */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Shadow for depth effect */
+            text-align: center; /* Center-aligns text within the container */
         }
 
-
+        /* Styling for the heading */
         h3 {
-            font-weight: 500;
-            color: #ffffff;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 10px 30px rgb(0, 0, 0);
-            background: linear-gradient(to right, #f86c7a, #7cdbfa);
-            padding: 10px; /* Adds space around the text */
-            border-radius: 5px; /* Optional: adds rounded corners */
-            max-width: 390px; /* Adjust this value to make it less wide */
-            margin-top: 75px;
-            margin-left: auto; /* Centers the element horizontally */
-            margin-right: auto; /* Centers the element horizontally */
+            font-weight: 500; /* Semi-bold text */
+            color: #ffffff; /* White text color */
+            margin-bottom: 20px; /* Space below the heading */
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow for text effect */
+            box-shadow: 0 10px 30px rgb(0, 0, 0); /* Shadow for the heading */
+            background: linear-gradient(to right, #f86c7a, #7cdbfa); /* Gradient background */
+            padding: 10px; /* Padding around the text */
+            border-radius: 5px; /* Rounded corners */
+            max-width: 390px; /* Maximum width of the heading */
+            margin-top: 75px; /* Space above the heading */
+            margin-left: auto; /* Centers the heading horizontally */
+            margin-right: auto; /* Centers the heading horizontally */
         }
 
-
+        /* Container for the MathQuill input field */
         .math-container {
-            border: 1px solid #3b8dbf;
-            border-radius: 10px;
-            padding: 10px;
-            min-height: 50px;
-            min-width: 250px;
-            margin-bottom: 10px;
-            cursor: text;
-            background-color: rgba(150, 150, 150, 0.9);
-            transition: background-color 0.3s;
+            border: 1px solid #3b8dbf; /* Border color */
+            border-radius: 10px; /* Rounded corners */
+            padding: 10px; /* Padding inside the container */
+            min-height: 50px; /* Minimum height for the container */
+            min-width: 250px; /* Minimum width for the container */
+            margin-bottom: 10px; /* Space below the math container */
+            cursor: text; /* Cursor indicates text input area */
+            background-color: rgba(150, 150, 150, 0.9); /* Background color */
+            transition: background-color 0.3s; /* Smooth transition for background color */
         }
 
+        /* Change background color when the MathQuill container is focused */
         .math-container:focus {
-            background-color: #2a3b4d;
+            background-color: #2a3b4d; /* Darker background on focus */
         }
 
+        /* Styling for symbol buttons container */
         .symbol-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 10px;
+            display: flex; /* Flexbox for layout */
+            flex-wrap: wrap; /* Allows buttons to wrap to the next line */
+            gap: 10px; /* Space between buttons */
+            justify-content: center; /* Center-aligns buttons */
+            margin-bottom: 10px; /* Space below symbol buttons */
         }
 
+        /* Container for each category of symbols */
         .category {
-            position: relative;
-            display: inline-block;
+            position: relative; /* Allows positioning of the symbols dropdown */
+            display: inline-block; /* Keeps each category inline */
         }
 
+        /* Hidden symbols dropdown that appears on hover */
         .symbols {
-            display: none;
-            position: absolute;
-            background: rgba(25, 25, 25, 0.9);
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            z-index: 1;
+            display: none; /* Initially hidden */
+            position: absolute; /* Position relative to category */
+            background: rgba(25, 25, 25, 0.9); /* Background color */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Shadow effect */
+            padding: 10px; /* Padding inside the dropdown */
+            z-index: 1; /* Ensures dropdown appears above other elements */
         }
 
+        /* Show symbols dropdown on hover */
         .category:hover .symbols {
-            display: block;
+            display: block; /* Display the symbols on hover */
         }
 
+        /* Styling for individual symbol buttons */
         .symbols button {
-            font-size: 18px;
-            border-radius: 25px;
-            border: none;
-            padding: 8px 12px;
-            background-color: #3b8dbf;
-            color: white;
-            margin: 5px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            font-size: 18px; /* Font size for buttons */
+            border-radius: 25px; /* Rounded corners */
+            border: none; /* No border */
+            padding: 8px 12px; /* Padding around button text */
+            background-color: #3b8dbf; /* Button background color */
+            color: white; /* Button text color */
+            margin: 5px 0; /* Space above and below buttons */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
         }
 
+        /* Change background and scale button on hover */
         .symbols button:hover {
-            background-color: #27a3bb;
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            background-color: #27a3bb; /* Change background color on hover */
+            transform: scale(1.05); /* Slightly enlarge button */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow effect on hover */
         }
 
+        /* Styling for the submit button */
         #submitBtn {
-            position: relative;
-            overflow: hidden;
-            transition: background-color 0.3s, color 0.3s;
-            border-radius: 25px;
-            padding: 10px 20px;
-            font-size: 18px;
-            background: linear-gradient(to right, #f86c7a, #7cdbfa);
-            color: white;
-            border: none;
-            margin-top: 15px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: relative; /* Allows for positioning effects */
+            overflow: hidden; /* Hides overflow content */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+            border-radius: 25px; /* Rounded corners */
+            padding: 10px 20px; /* Padding around button text */
+            font-size: 18px; /* Font size */
+            background: linear-gradient(to right, #f86c7a, #7cdbfa); /* Gradient background */
+            color: white; /* Text color */
+            border: none; /* No border */
+            margin-top: 15px; /* Space above the button */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow for depth */
         }
 
+        /* Change background and scale submit button on hover */
         #submitBtn:hover {
-            background-color: #27a3bb;
-            transform: scale(1.05);
+            background-color: #27a3bb; /* Change background color on hover */
+            transform: scale(1.05); /* Slightly enlarge button */
         }
 
+        /* Spinner styling for loading indication */
         .spinner {
-            display: none;
+            display: none; /* Hidden by default */
         }
 
+        /* Container for video player, hidden by default */
         .video-container {
-            display: none;
-            margin-top: 20px;
+            display: none; /* Initially hidden */
+            margin-top: 20px; /* Space above the video container */
         }
 
+        /* Video player styling */
         #videoPlayer {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 10px; /* Rounded corners for the video player */
+            overflow: hidden; /* Hides overflow content */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow effect */
         }
 
+        /* Background image for the container */
         .container {
-             background-image: url('../images/mathimages2.jpg');
-             background-size: cover; /* Ensures the image covers the entire container */
-             background-position: center; /* Centers the image */
-             padding: 20px; /* Adds some padding around the content */
-             color: white; /* Adjust text color for better readability */
-         }
-
+            background-image: url('../images/mathimages2.jpg'); /* Background image */
+            background-size: cover; /* Ensure the image covers the entire container */
+            background-position: center; /* Center the image */
+            padding: 20px; /* Padding around the content */
+            color: white; /* Adjust text color for better readability */
+        }
     </style>
 </head>
 
 <body>
+<!-- Navigation bar at the top of the page -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">MathGen</a>
+        <a class="navbar-brand" href="#">MathGen</a> <!-- Brand name -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span> <!-- Toggle button for mobile view -->
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="Home.html">Home</a>
+                    <a class="nav-link" href="Home.html">Home</a> <!-- Home link -->
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Search</a>
+                    <a class="nav-link active" href="#">Search</a> <!-- Current page link -->
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="About.html">About Us</a>
+                    <a class="nav-link" href="About.html">About Us</a> <!-- About link -->
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
+<!-- Main content container -->
 <div class="container">
-    <h3>Please enter your equation:</h3>
+    <h3>Please enter your equation:</h3> <!-- Heading for user input -->
 
-    <!-- MathQuill Element -->
+    <!-- MathQuill Element for entering mathematical equations -->
     <div id="mathContainer" class="math-container" tabindex="0"></div>
 
+    <!-- Container for symbol buttons categorized by type -->
     <div class="symbol-buttons">
         <div class="category">
-            <button class="btn btn-secondary">Calculus</button>
+            <button class="btn btn-secondary">Calculus</button> <!-- Button for calculus symbols -->
             <div class="symbols">
-                <button onmousedown="insertSymbol('\\int')">∫</button>
-                <button onmousedown="insertSymbol('\\frac{d}{dx}')">d/dx</button>
-                <button onmousedown="insertSymbol('\\lim')">lim</button>
-                <button onmousedown="insertSymbol('\\infty')">∞</button>
-                <button onmousedown="insertSquareRoot()">√</button>
+                <button onmousedown="insertSymbol('\\int')">∫</button> <!-- Integral symbol -->
+                <button onmousedown="insertSymbol('\\frac{d}{dx}')">d/dx</button> <!-- Derivative symbol -->
+                <button onmousedown="insertSymbol('\\infty')">∞</button> <!-- Infinity symbol -->
+                <button onmousedown="insertSymbol('\\sum')">Σ</button> <!-- Summation symbol -->
+                <button onmousedown="insertLimit()">lim</button> <!-- Limit symbol -->
             </div>
         </div>
 
         <div class="category">
-            <button class="btn btn-secondary">Algebra</button>
+            <button class="btn btn-secondary">Algebra</button> <!-- Button for algebra symbols -->
             <div class="symbols">
-                <button onmousedown="insertSymbol('\\sum')">Σ</button>
-                <button onmousedown="insertSymbol('\\pm')">±</button>
-                <button onmousedown="insertSymbol('\\times')">×</button>
-                <button onmousedown="insertSymbol('\\div')">÷</button>
+                <button onmousedown="insertSymbol('\\pm')">±</button> <!-- Plus-minus symbol -->
+                <button onmousedown="insertSymbol('\\times')">×</button> <!-- Multiplication symbol -->
+                <button onmousedown="insertSymbol('\\div')">÷</button> <!-- Division symbol -->
+                <button onmousedown="insertSquareRoot()">√</button> <!-- Square root symbol -->
             </div>
         </div>
 
         <div class="category">
-            <button class="btn btn-secondary">Greek Letters</button>
+            <button class="btn btn-secondary">Greek Letters</button> <!-- Button for Greek letters -->
             <div class="symbols">
-                <button onmousedown="insertSymbol('\\alpha')">α</button>
-                <button onmousedown="insertSymbol('\\beta')">β</button>
-                <button onmousedown="insertSymbol('\\gamma')">γ</button>
-                <button onmousedown="insertSymbol('\\delta')">δ</button>
-                <button onmousedown="insertSymbol('\\epsilon')">ε</button>
-                <button onmousedown="insertSymbol('\\theta')">θ</button>
-                <button onmousedown="insertSymbol('\\omega')">ω</button>
-                <button onmousedown="insertSymbol('\\Delta')">Δ</button>
-                <button onmousedown="insertSymbol('\\nabla')">∇</button>
+                <button onmousedown="insertSymbol('\\pi')">π</button> <!-- Pi  symbol -->
+                <button onmousedown="insertSymbol('\\alpha')">α</button> <!-- Alpha symbol -->
+                <button onmousedown="insertSymbol('\\beta')">β</button> <!-- Beta symbol -->
+                <button onmousedown="insertSymbol('\\gamma')">γ</button> <!-- Gamma symbol -->
+                <button onmousedown="insertSymbol('\\delta')">δ</button> <!-- Delta symbol -->
+                <button onmousedown="insertSymbol('\\epsilon')">ε</button> <!-- Epsilon symbol -->
+                <button onmousedown="insertSymbol('\\theta')">θ</button> <!-- Theta symbol -->
+                <button onmousedown="insertSymbol('\\omega')">ω</button> <!-- Omega symbol -->
+                <button onmousedown="insertSymbol('\\Delta')">Δ</button> <!-- Uppercase Delta symbol -->
+                <button onmousedown="insertSymbol('\\nabla')">∇</button> <!-- Nabla symbol -->
             </div>
         </div>
 
         <div class="category">
-            <button class="btn btn-secondary">Logic</button>
+            <button class="btn btn-secondary">Logic</button> <!-- Button for logic symbols -->
             <div class="symbols">
-                <button onmousedown="insertSymbol('\\forall')">∀</button>
-                <button onmousedown="insertSymbol('\\exists')">∃</button>
-                <button onmousedown="insertSymbol('\\neg')">¬</button>
-                <button onmousedown="insertSymbol('\\land')">∧</button>
-                <button onmousedown="insertSymbol('\\lor')">∨</button>
-                <button onmousedown="insertSymbol('\\Rightarrow')">⇒</button>
-                <button onmousedown="insertSymbol('\\Leftrightarrow')">⇔</button>
+                <button onmousedown="insertSymbol('\\forall')">∀</button> <!-- Universal quantifier -->
+                <button onmousedown="insertSymbol('\\exists')">∃</button> <!-- Existential quantifier -->
+                <button onmousedown="insertSymbol('\\neg')">¬</button> <!-- Negation symbol -->
+                <button onmousedown="insertSymbol('\\land')">∧</button> <!-- Logical AND -->
+                <button onmousedown="insertSymbol('\\lor')">∨</button> <!-- Logical OR -->
+                <button onmousedown="insertSymbol('\\Rightarrow')">⇒</button> <!-- Implication -->
+                <button onmousedown="insertSymbol('\\Leftrightarrow')">⇔</button> <!-- Biconditional -->
             </div>
         </div>
 
         <div class="category">
-            <button class="btn btn-secondary">Comparisons</button>
+            <button class="btn btn-secondary">Comparisons</button> <!-- Button for comparison symbols -->
             <div class="symbols">
-                <button onmousedown="insertSymbol('\\leq')">≤</button>
-                <button onmousedown="insertSymbol('\\geq')">≥</button>
-                <button onmousedown="insertSymbol('\\approx')">≈</button>
-                <button onmousedown="insertSymbol('\\equiv')">≡</button>
+                <button onmousedown="insertSymbol('\\leq')">≤</button> <!-- Less than or equal to -->
+                <button onmousedown="insertSymbol('\\geq')">≥</button> <!-- Greater than or equal to -->
+                <button onmousedown="insertSymbol('\\approx')">≈</button> <!-- Approximately equal to -->
+                <button onmousedown="insertSymbol('\\equiv')">≡</button> <!-- Identically equal to -->
             </div>
         </div>
 
-        <div class="category">
-            <button class="btn btn-secondary">Miscellaneous</button>
-            <div class="symbols">
-                <button onmousedown="insertSymbol('\\cdots')">⋯</button>
-                <button onmousedown="insertSymbol('\\vdots')">⋮</button>
-                <button onmousedown="insertSymbol('\\hookrightarrow')">↪</button>
-                <button onmousedown="insertSymbol('\\mapsto')">↦</button>
-            </div>
-        </div>
     </div>
 
-    <button id="submitBtn">Generate Video</button>
+    <button id="submitBtn">Generate Video</button> <!-- Button to generate the video -->
 
+    <!-- Spinner to indicate loading process -->
     <div class="spinner text-center mt-3">
         <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">Loading...</span> <!-- Visually hidden loading text -->
         </div>
     </div>
 
+    <!-- Container for the video player, initially hidden -->
     <div class="video-container">
-        <video id="videoPlayer" controls class="w-100">
-            <source id="videoSource" type="video/mp4">
-            Your browser does not support the video tag.
+        <video id="videoPlayer" controls class="w-100"> <!-- Video player element -->
+            <source id="videoSource" type="video/mp4"> <!-- Source for the video -->
+            Your browser does not support the video tag. <!-- Fallback text for unsupported browsers -->
         </video>
     </div>
 
 </div>
+<script>
+    function insertLimit() {
+        // Insert a limit expression with placeholders for lower and upper limits
+        const limitExpression = `\\lim_{a \\to b}`; // Placeholder for limits
+        mathField.write(limitExpression);
+    }
+</script>
 
-<!-- Bootstrap JS and dependencies -->
+<!-- Scripts for Bootstrap and dependencies -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
-<!-- MathQuill JS from CDN -->
+<!-- Script for MathQuill -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
 
 <script>
-    // Initialize MathQuill
+    // Initialize MathQuill with specific options
     var MQ = MathQuill.getInterface(2);
     var mathField = MQ.MathField(document.getElementById('mathContainer'), {
-        spaceBehavesLikeTab: true,
+        spaceBehavesLikeTab: true, // Space key acts as tab
         handlers: {
             enter: function () {
-                document.getElementById('submitBtn').click();
+                document.getElementById('submitBtn').click(); // Submit when Enter is pressed
             }
         }
     });
 
-    // Function to insert symbols into the MathQuill field
+    // Function to insert symbols into the MathQuill input field
     function insertSymbol(symbol) {
-        mathField.write(symbol);
+        mathField.write(symbol); // Writes the symbol to the MathQuill field
     }
 
+    // Function to insert square root symbol
     function insertSquareRoot() {
-        mathField.cmd('sqrt');
+        mathField.cmd('sqrt'); // Inserts square root command
     }
 
-    // Attach a click event listener to the submit button
+    // Event listener for the submit button
     document.getElementById('submitBtn').addEventListener('click', function() {
-        // Get references to the spinner, video container, video player, and video source elements
-        const spinner = document.querySelector('.spinner'); // Spinner to indicate loading
+        // Get references to UI elements
+        const spinner = document.querySelector('.spinner'); // Spinner for loading indication
         const videoContainer = document.querySelector('.video-container'); // Container for the video
         const videoPlayer = document.getElementById('videoPlayer'); // Video player element
-        const videoSource = document.getElementById('videoSource'); // Source for the video player
+        const videoSource = document.getElementById('videoSource'); // Video source element
 
         // Show the spinner while processing
-        spinner.style.display = 'block';
-        // Hide the video container initially
-        videoContainer.style.display = 'none';
+        spinner.style.display = 'block'; // Display spinner
+        videoContainer.style.display = 'none'; // Hide video container initially
 
-        // Get the equation inputted by the user in LaTeX format from MathQuill
-        const equation = mathField.latex(); // Assumes mathField is a MathQuill instance
+        // Get the equation entered by the user in LaTeX format
+        const equation = mathField.latex(); // Extracts LaTeX string from MathQuill field
 
         // ----------------------- First API Call for Video Generation -----------------------
         // Define the URL for the API that generates the video based on the equation
@@ -340,7 +358,7 @@
         // }, 2000); // Simulate a 2-second loading time
 
         // ----------------------- Second API Call to Get Solution in SymPy Form -----------------------
-        // Perform a fetch request to the new API that returns the solution for the equation
+        // Perform a fetch request to the API that returns the solution for the equation
         fetch('http://127.0.0.1:5000/solve', { // Replace with your actual API endpoint
             method: 'POST', // Use POST method to send data
             headers: {
@@ -355,11 +373,10 @@
                 console.log('ABCDEFG' + data); // Log the entire response for debugging purposes
 
                 // Check if the response contains a solution
-                videoSource.src = data.url;
+                videoSource.src = data.url; // Set the video source to the returned URL
                 videoPlayer.load(); // Load the new video source into the player
-                videoContainer.style.display = 'block';
-                // Hide the spinner as the loading is complete
-                spinner.style.display = 'none';
+                videoContainer.style.display = 'block'; // Show the video container
+                spinner.style.display = 'none'; // Hide the spinner as the loading is complete
                 // if (data.solution) {
                 //     // If a solution is found, display it in an alert (can be modified to display in the UI)
                 //     alert(`Solution in SymPy form: ${data.solution}`);
@@ -372,11 +389,9 @@
                 // Catch any errors that occur during the fetch request
                 console.error('Error:', error); // Log the error for debugging
                 // Notify the user of an error
-                alert('An error occurred while fetching the solution.');
+                alert('An error occurred while fetching the solution.'); // Show alert with error message
             });
     });
-
-
 </script>
 </body>
 </html>
