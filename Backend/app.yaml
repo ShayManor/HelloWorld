@@ -1,8 +1,12 @@
 runtime: python312
+env: flex
 
 entrypoint: gunicorn -b :$PORT app:app
 
-instance_class: F4
+resources:
+  cpu: 2
+  memory_gb: 4
+  disk_size_gb: 20
 
 automatic_scaling:
   min_instances: 1
@@ -13,4 +17,3 @@ handlers:
     static_dir: static
   - url: /.*
     script: auto
-
