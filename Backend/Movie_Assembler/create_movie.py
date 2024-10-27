@@ -9,7 +9,7 @@ from moviepy.audio.AudioClip import AudioArrayClip
 from moviepy.editor import (
     ImageClip, AudioFileClip, CompositeVideoClip, concatenate_audioclips
 )
-from Backend.Movie_Assembler.script_to_audio import script_to_audio
+import script_to_audio
 
 class create_movie:
     def __init__(self, api_key):

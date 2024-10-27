@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from Backend.Movie_Creator.main import solver  # Adjust the import as per your project structure
+from Movie_Creator.main import solver  # Adjust the import as per your project structure
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes

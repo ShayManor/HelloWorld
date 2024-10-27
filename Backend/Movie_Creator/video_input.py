@@ -1,6 +1,3 @@
-from typing import Optional
-
-
 class video_input:
     def __init__(self):
         self.script = None

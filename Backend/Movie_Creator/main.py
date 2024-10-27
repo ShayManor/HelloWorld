@@ -4,7 +4,7 @@ import openai
 
 from Backend.Api.export_file import aws_uploader
 from Backend.Movie_Assembler.create_movie import create_movie
-from Backend.Movie_Creator.core import core
+from core import core
 
 
 class solver:
