@@ -9,7 +9,6 @@ from moviepy.audio.AudioClip import AudioArrayClip
 from moviepy.editor import (
     ImageClip, AudioFileClip, CompositeVideoClip, concatenate_audioclips
 )
-from Backend.Movie_Creator.video_input import video_input
 from Backend.Movie_Assembler.script_to_audio import script_to_audio
 
 class create_movie:
@@ -96,7 +95,7 @@ class create_movie:
         video_width, video_height = 1280, 720  # HD resolution
 
         # Load and resize background image
-        bg_clip = ImageClip('/Users/shay/PycharmProjects/HelloWorld/images/background.jpeg').set_duration(final_audio.duration).resize((video_width, video_height))
+        # bg_clip = ImageClip('/HelloWorld/images/background.jpeg').set_duration(final_audio.duration).resize((video_width, video_height))
 
         # Dictionary to hold line clips with their corresponding lines as keys
         line_clips_dict = {}
@@ -168,7 +167,7 @@ class create_movie:
         line_clips = list(line_clips_dict.values())
 
         # Composite all clips together
-        video_clip = CompositeVideoClip([bg_clip] + line_clips, size=(video_width, video_height))
+        video_clip = CompositeVideoClip(line_clips, size=(video_width, video_height))
         video_clip = video_clip.set_audio(final_audio)
 
         # Write the video file

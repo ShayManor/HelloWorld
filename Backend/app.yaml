@@ -1,0 +1,9 @@
+runtime: python312
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 5
+
+handlers:
+  - url: /.*
+    script: auto

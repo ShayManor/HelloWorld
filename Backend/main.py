@@ -1,31 +1,19 @@
-import json
-import os
-import openai
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
-from Backend.Api.export_file import aws_uploader
-from Backend.Movie_Assembler.create_movie import create_movie
-from Backend.Movie_Assembler.upload_video import YouTubeUploader, main
-from Backend.Movie_Creator.core import core
+from Backend.Movie_Creator.main import solver  # Adjust the import as per your project structure
+
+app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 
-class solver:
-    def __init__(self, problem):
-        self.problem = problem
-        self.link = ''
-        os.environ[
-            "OPENAI_API_KEY"] = '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'
-        openai.api_key = os.environ["OPENAI_API_KEY"]
+@app.route('/solve', methods=['POST'])
+def solve():
+    data = request.get_json()
+    problem = data.get('problem')
+    result = solver(problem).upload()
+    return jsonify(result)
 
-    def upload(self):
-        core_instance = core(self.problem, openai.api_key)
-        video_inputs = core_instance.start()
-        mov = create_movie(openai.api_key)
-        movie_name = mov.create_video_from_inputs(video_inputs)
-        mov.create_video_from_inputs(video_inputs, movie_name)
-        self.link = aws_uploader().upload(file_path=movie_name)
-        return self.to_json()
 
-    def to_json(self):
-        return json.dumps({'url': self.link})
-
-# solver(problem, solution).upload(False)
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=5000, debug=True)
