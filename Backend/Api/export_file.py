@@ -1,3 +1,4 @@
+import os
 import uuid
 
 import boto3
@@ -16,7 +17,7 @@ class aws_uploader:
         # Upload the file
         self.s3_client.upload_file(file_path, self.bucket_name, object_name)
         url = f"https://{self.bucket_name}.s3.amazonaws.com/{object_name}"
+        os.remove(file_path)
         return url
 
 
-# aws_uploader().upload()

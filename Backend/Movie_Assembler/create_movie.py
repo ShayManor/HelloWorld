@@ -96,7 +96,7 @@ class create_movie:
         video_width, video_height = 1280, 720  # HD resolution
 
         # Load and resize background image
-        bg_clip = ImageClip('/Users/shay/PycharmProjects/HelloWorld/Backend/background.jpeg').set_duration(final_audio.duration).resize((video_width, video_height))
+        bg_clip = ImageClip('/Users/shay/PycharmProjects/HelloWorld/images/background.jpeg').set_duration(final_audio.duration).resize((video_width, video_height))
 
         # Dictionary to hold line clips with their corresponding lines as keys
         line_clips_dict = {}
