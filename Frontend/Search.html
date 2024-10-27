@@ -12,9 +12,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css">
 
     <!-- Link to Google Fonts for custom font styling -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
+    .navbar-brand {
+        background: linear-gradient(to right, #f86c7a, #7cdbfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; /* Make text color transparent */
+        font-size: 3vw; /* Adjust the size as needed */
+        font-weight: bold; /* Optional: make it bold */
+        margin-right: 5px;
+    }
+
+    .navbar {
+        font-size: 1.5vw; /* Adjust the size as needed */
+        font-weight: bold; /* Optional: make it bold */
+        margin: 0px;
+    }
+    .navbar-nav .nav-item {
+        margin-right: 0px; /* Adjust the space between items */
+    }
+
+    .navbar-nav .nav-item:last-child {
+        margin-right: 0; /* Remove margin for the last item */
+    }
+
         /* Styling for the body, including a gradient background and centering content */
         body {
             background: linear-gradient(to right, #f86c7a, #7cdbfa);
@@ -22,7 +44,7 @@
             display: flex;
             justify-content: center; /* Centers content horizontally */
             align-items: center; /* Centers content vertically */
-            font-family: 'Roboto', sans-serif; /* Sets the font for the entire page */
+            font-family: 'Nunito', sans-serif;
             color: #e0e0e0; /* Text color */
             margin: 0; /* Remove default margin */
             height: 100vh; /* Full viewport height */
@@ -31,42 +53,45 @@
 
         /* Container for the main content with background, padding, and shadow */
         .container {
-            max-width: 933px; /* Maximum width for the container */
+            max-width: 70vw; /* Maximum width for the container */
             background: rgba(25, 25, 25, 0.9); /* Semi-transparent background */
             border-radius: 15px; /* Rounded corners */
             padding: 30px; /* Padding around content */
-            min-height: 611px; /* Minimum height for the container */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Shadow for depth effect */
+            min-height: 80vh; /* Minimum height for the container */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Shadow for depth effect */
             text-align: center; /* Center-aligns text within the container */
         }
 
         /* Styling for the heading */
         h3 {
-            font-weight: 500; /* Semi-bold text */
+            font-weight: 620; /* Semi-bold text */
             color: #ffffff; /* White text color */
-            margin-bottom: 20px; /* Space below the heading */
+            margin-bottom: 3.2vw; /* Space below the heading */
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow for text effect */
             box-shadow: 0 10px 30px rgb(0, 0, 0); /* Shadow for the heading */
             background: linear-gradient(to right, #f86c7a, #7cdbfa); /* Gradient background */
-            padding: 10px; /* Padding around the text */
-            border-radius: 5px; /* Rounded corners */
-            max-width: 390px; /* Maximum width of the heading */
-            margin-top: 75px; /* Space above the heading */
+            padding: 2.5vh; /* Padding around the text */
+            border-radius: 10px; /* Rounded corners */
+            max-width: 60vw; /* Maximum width of the heading */
+            margin-top: 15vh; /* Space above the heading */
             margin-left: auto; /* Centers the heading horizontally */
             margin-right: auto; /* Centers the heading horizontally */
+            font-size: 3.7vw; /* Increase the font size (adjust as needed) */
         }
+
 
         /* Container for the MathQuill input field */
         .math-container {
             border: 1px solid #3b8dbf; /* Border color */
             border-radius: 10px; /* Rounded corners */
-            padding: 10px; /* Padding inside the container */
-            min-height: 50px; /* Minimum height for the container */
-            min-width: 250px; /* Minimum width for the container */
-            margin-bottom: 10px; /* Space below the math container */
+            padding: 1.5vw; /* Padding inside the container */
+            min-height: 6vw; /* Minimum height for the container */
+            min-width: 40vw; /* Minimum width for the container */
+            margin-bottom: 1.25vw; /* Space below the math container */
             cursor: text; /* Cursor indicates text input area */
             background-color: rgba(150, 150, 150, 0.9); /* Background color */
             transition: background-color 0.3s; /* Smooth transition for background color */
+            font-size: 1.5vw;
         }
 
         /* Change background color when the MathQuill container is focused */
@@ -78,10 +103,16 @@
         .symbol-buttons {
             display: flex; /* Flexbox for layout */
             flex-wrap: wrap; /* Allows buttons to wrap to the next line */
-            gap: 10px; /* Space between buttons */
+            gap: 0.65vw; /* Space between buttons */
             justify-content: center; /* Center-aligns buttons */
-            margin-bottom: 10px; /* Space below symbol buttons */
+            margin-bottom: 0.9vw; /* Space below symbol buttons */
         }
+
+        .symbol-buttons button {
+            font-size: 1.35vw; /* Increase the font size (adjust as needed) */
+            padding: 1vw 1.7vw; /* Adjust padding for better appearance */
+        }
+
 
         /* Container for each category of symbols */
         .category {
@@ -96,7 +127,7 @@
             background: rgba(25, 25, 25, 0.9); /* Background color */
             border-radius: 8px; /* Rounded corners */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Shadow effect */
-            padding: 10px; /* Padding inside the dropdown */
+            padding: 1vh; /* Padding inside the dropdown */
             z-index: 1; /* Ensures dropdown appears above other elements */
         }
 
@@ -107,13 +138,13 @@
 
         /* Styling for individual symbol buttons */
         .symbols button {
-            font-size: 18px; /* Font size for buttons */
+            font-size: 1.35vw; /* Font size for buttons */
             border-radius: 25px; /* Rounded corners */
             border: none; /* No border */
-            padding: 8px 12px; /* Padding around button text */
+            padding: 1.25vh 1.25vw; /* Padding around button text */
             background-color: #3b8dbf; /* Button background color */
             color: white; /* Button text color */
-            margin: 5px 0; /* Space above and below buttons */
+            margin: 0.25vw 0; /* Space above and below buttons */
             transition: all 0.3s ease; /* Smooth transition for hover effects */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
         }
@@ -131,12 +162,12 @@
             overflow: hidden; /* Hides overflow content */
             transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
             border-radius: 25px; /* Rounded corners */
-            padding: 10px 20px; /* Padding around button text */
-            font-size: 18px; /* Font size */
+            padding: 1.55vh 1.75vw; /* Padding around button text */
+            font-size: 2.75vw; /* Font size */
             background: linear-gradient(to right, #f86c7a, #7cdbfa); /* Gradient background */
             color: white; /* Text color */
             border: none; /* No border */
-            margin-top: 15px; /* Space above the button */
+            margin-top: 8px; /* Space above the button */
             cursor: pointer; /* Change cursor to pointer on hover */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow for depth */
         }
@@ -155,24 +186,25 @@
         /* Container for video player, hidden by default */
         .video-container {
             display: none; /* Initially hidden */
-            margin-top: 20px; /* Space above the video container */
+            margin-top: 1.25vw; /* Space above the video container */
         }
 
         /* Video player styling */
         #videoPlayer {
-            border-radius: 10px; /* Rounded corners for the video player */
+            border-radius: 0.75vw; /* Rounded corners for the video player */
             overflow: hidden; /* Hides overflow content */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow effect */
+            box-shadow: 0 0.35vw 1.25vw rgba(0, 0, 0, 0.5); /* Shadow effect */
         }
 
         /* Background image for the container */
         .container {
-            background-image: url('../images/mathimages2.jpg'); /* Background image */
+            background-image: url('images/mathimages2.jpg'); /* Background image */
             background-size: cover; /* Ensure the image covers the entire container */
             background-position: center; /* Center the image */
-            padding: 20px; /* Padding around the content */
+            padding: 1.25vw; /* Padding around the content */
             color: white; /* Adjust text color for better readability */
         }
+
     </style>
 </head>
 
@@ -342,22 +374,7 @@
         // Get the equation entered by the user in LaTeX format
         const equation = mathField.latex(); // Extracts LaTeX string from MathQuill field
 
-        // ----------------------- First API Call for Video Generation -----------------------
-        // Define the URL for the API that generates the video based on the equation
-        // const videoApiUrl = 'path/to/generated/video.mp4'; // Replace with your actual video API URL
-        //
-        // // Simulate the video generation process (replace this with an actual AJAX request)
-        // setTimeout(() => {
-        //     // After the simulated delay, set the video source to the generated video URL
-        //     videoSource.src = "https://youtu.be/hVrh9_StNlk"; // Set the video source to the generated video URL
-        //     videoPlayer.load(); // Load the new video source into the player
-        //     // Show the video container now that the video is ready
-        //     videoContainer.style.display = 'block';
-        //     // Hide the spinner as the loading is complete
-        //     spinner.style.display = 'none';
-        // }, 2000); // Simulate a 2-second loading time
 
-        // ----------------------- Second API Call to Get Solution in SymPy Form -----------------------
         // Perform a fetch request to the API that returns the solution for the equation
         fetch('https://helloworldhackathonyoutube.ue.r.appspot.com/solve', { // Replace with your actual API endpoint
             method: 'POST', // Use POST method to send data
@@ -377,13 +394,7 @@
                 videoPlayer.load(); // Load the new video source into the player
                 videoContainer.style.display = 'block'; // Show the video container
                 spinner.style.display = 'none'; // Hide the spinner as the loading is complete
-                // if (data.solution) {
-                //     // If a solution is found, display it in an alert (can be modified to display in the UI)
-                //     alert(`Solution in SymPy form: ${data.solution}`);
-                // } else {
-                //     // If no solution is found, notify the user
-                //     alert('No solution found.');
-                // }
+
             })
             .catch((error) => {
                 // Catch any errors that occur during the fetch request
