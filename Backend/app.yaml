@@ -1,6 +1,8 @@
 runtime: python312
 
-entrypoint: gunicorn -b :$PORT main:app
+entrypoint: gunicorn -b :$PORT app:app
+
+instance_class: F4
 
 automatic_scaling:
   min_instances: 1
