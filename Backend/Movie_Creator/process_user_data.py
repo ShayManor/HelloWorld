@@ -1,11 +1,12 @@
 from openai import OpenAI
 
+
 class process_data:
-    def __init__(self, problem, solution, api_key):
+    def __init__(self, problem, api_key):
         OpenAI.api_key = api_key
         self.assistant_id = "asst_VRHhu2ImFPxGBi05iz2AnjOc"
         self.client = OpenAI()
-        self.prompt = "Problem: " + problem + "\n Solution: " + solution
+        self.prompt = "Problem: " + problem
 
     def start_processing(self):
         assistant = self.client.beta.assistants.retrieve(

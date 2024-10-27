@@ -326,42 +326,47 @@
 
         // ----------------------- First API Call for Video Generation -----------------------
         // Define the URL for the API that generates the video based on the equation
-        const videoApiUrl = 'path/to/generated/video.mp4'; // Replace with your actual video API URL
-
-        // Simulate the video generation process (replace this with an actual AJAX request)
-        setTimeout(() => {
-            // After the simulated delay, set the video source to the generated video URL
-            videoSource.src = "https://youtu.be/hVrh9_StNlk"; // Set the video source to the generated video URL
-            videoPlayer.load(); // Load the new video source into the player
-            // Show the video container now that the video is ready
-            videoContainer.style.display = 'block';
-            // Hide the spinner as the loading is complete
-            spinner.style.display = 'none';
-        }, 2000); // Simulate a 2-second loading time
+        // const videoApiUrl = 'path/to/generated/video.mp4'; // Replace with your actual video API URL
+        //
+        // // Simulate the video generation process (replace this with an actual AJAX request)
+        // setTimeout(() => {
+        //     // After the simulated delay, set the video source to the generated video URL
+        //     videoSource.src = "https://youtu.be/hVrh9_StNlk"; // Set the video source to the generated video URL
+        //     videoPlayer.load(); // Load the new video source into the player
+        //     // Show the video container now that the video is ready
+        //     videoContainer.style.display = 'block';
+        //     // Hide the spinner as the loading is complete
+        //     spinner.style.display = 'none';
+        // }, 2000); // Simulate a 2-second loading time
 
         // ----------------------- Second API Call to Get Solution in SymPy Form -----------------------
         // Perform a fetch request to the new API that returns the solution for the equation
-        fetch('YOUR_NEW_API_ENDPOINT', { // Replace with your actual API endpoint
+        fetch('http://127.0.0.1:5000/solve', { // Replace with your actual API endpoint
             method: 'POST', // Use POST method to send data
             headers: {
                 'Content-Type': 'application/json', // Specify that we are sending JSON data
             },
             // Create the request body as a JSON object with the LaTeX equation
-            body: JSON.stringify({ equation: equation }) // Convert the object to a JSON string
+            body: JSON.stringify({ problem: equation }) // Convert the object to a JSON string
         })
             .then(response => response.json()) // Parse the JSON response
             .then(data => {
                 // Process the data returned from the API
-                console.log(data); // Log the entire response for debugging purposes
+                console.log('ABCDEFG' + data); // Log the entire response for debugging purposes
 
                 // Check if the response contains a solution
-                if (data.solution) {
-                    // If a solution is found, display it in an alert (can be modified to display in the UI)
-                    alert(`Solution in SymPy form: ${data.solution}`);
-                } else {
-                    // If no solution is found, notify the user
-                    alert('No solution found.');
-                }
+                videoSource.src = data.url;
+                videoPlayer.load(); // Load the new video source into the player
+                videoContainer.style.display = 'block';
+                // Hide the spinner as the loading is complete
+                spinner.style.display = 'none';
+                // if (data.solution) {
+                //     // If a solution is found, display it in an alert (can be modified to display in the UI)
+                //     alert(`Solution in SymPy form: ${data.solution}`);
+                // } else {
+                //     // If no solution is found, notify the user
+                //     alert('No solution found.');
+                // }
             })
             .catch((error) => {
                 // Catch any errors that occur during the fetch request

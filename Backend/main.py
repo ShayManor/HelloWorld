@@ -7,14 +7,11 @@ from Backend.Movie_Assembler.create_movie import create_movie
 from Backend.Movie_Assembler.upload_video import YouTubeUploader, main
 from Backend.Movie_Creator.core import core
 
-problem = '3x + 4 = 7'
-solution = 'x = 1'
-
 
 class solver:
-    def __init__(self, problem, solution):
+    def __init__(self, problem):
         self.problem = problem
-        self.solution = solution
+        # self.solution = solution
         self.link = ''
         os.environ["GCP_API_KEY"] = 'AIzaSyBMc19g-80j9BmdlDLZLfR7D7ZBZiBWaAc'
         os.environ[
@@ -23,19 +20,16 @@ class solver:
 
         # yt = YouTubeUploader('/HelloWorld/Secrets/client_secrets.json')
 
-    def upload(self, upload):
-        core_instance = core(problem, solution, openai.api_key)
+    def upload(self):
+        core_instance = core(self.problem, openai.api_key)
         video_inputs = core_instance.start()
         mov = create_movie(openai.api_key)
         movie_name = mov.create_video_from_inputs(video_inputs)
-        # if upload:
         mov.create_video_from_inputs(video_inputs, movie_name)
-        #     self.link = main(movie_name, problem)
-        #     return self.link
         self.link = aws_uploader().upload(file_path=movie_name)
         return self.to_json()
 
     def to_json(self):
-        return json.dumps({'link': self.link})
+        return json.dumps({'url': self.link})
 
 # solver(problem, solution).upload(False)

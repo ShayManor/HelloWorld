@@ -19,4 +19,4 @@ class aws_uploader:
         return url
 
 
-aws_uploader().upload()
+# aws_uploader().upload()

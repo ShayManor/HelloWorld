@@ -5,25 +5,23 @@ from Backend.Movie_Creator.video_input import video_input
 
 
 class core:
-    def __init__(self, problem, solution, api_key):
+    def __init__(self, problem, api_key):
         self.problem = problem
-        self.solution = solution
         self.apiKey = api_key
 
     def start(self):
-        # process = process_data(self.problem, self.solution, api_key=self.apiKey)
-        # post_processed_data = process.start_processing()
-        post_processed_data = "To solve the equation \(3x + 4 = 7\), start by isolating the term with the variable \(x\). You can do this by subtracting 4 from both sides of the equation, resulting in \(3x = 3\). Next, solve for \(x\) by dividing both sides of the equation by 3, which gives \(x = 1\). Double-check the solution by plugging \(x = 1\) back into the original equation to ensure both sides equal 7."
-        # print("Post Processing Finished")
-        # print(post_processed_data)
+        process = process_data(self.problem, api_key=self.apiKey)
+        post_processed_data = process.start_processing()
+        print("Post Processing Finished")
+        print(post_processed_data)
         if post_processed_data == "Error":
             return False
 
-        # script = script_generator(apiKey=self.apiKey, prompt=post_processed_data)
-        # script = script.start_process()
+        script = script_generator(apiKey=self.apiKey, prompt=post_processed_data)
+        script = script.start_process()
         # with open('Movie_Creator/script.txt') as f:
-        with open('/Users/shay/PycharmProjects/HelloWorld/Backend/Movie_Creator/script.txt') as f:
-            script = f.read()
+        # with open('/Users/shay/PycharmProjects/HelloWorld/Backend/Movie_Creator/script.txt') as f:
+        #     script = f.read()
         print("Script finished")
         # print(script)
 
